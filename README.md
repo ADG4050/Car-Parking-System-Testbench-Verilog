@@ -91,7 +91,7 @@ d) Log Values restart error(unintentional): - The log values tend to show error 
 e) Log Values inc_exp and dec_exp error (unintentional): - The log values show error when inc_exp or dec_exp bits are high but does not correspond 100% with the entry or exit signal. This is because inc_exp and dec_exp happen simultaneously only when last a = 0, b = 0 in the FSM sequence. 
 
 
-** Screen Captures - Timing Diagram & Log Files
+** Screen Captures - Timing Diagram & Log Files**
 <img src="UVM5.PNG" width="600">
 <img src="UVM6.PNG" width="600">
 <img src="UVM7.PNG" width="600">
