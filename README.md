@@ -57,6 +57,7 @@ The testbench is created with reset initially being high till 30 units and then 
 
 
 **CONCLUSION**
+
 After top module creation, and adding debouncer module, the top module was synthesized, design implemented and bitstream was generated. The bitstream file was uploaded to the PNNQ module and tested. Four LEDs as output and three buttons (one for reset, one for A, one for B) were used from the constraint file. The counter value counted to 15(1111), upon entry sequence and counted to 0000 upon exit sequence.
 
 ## ADVANCED TESTBENCH (UNIVERSAL VERIFICATION METHODOLOGY)
@@ -64,6 +65,7 @@ After top module creation, and adding debouncer module, the top module was synth
 <img src="UVM1.PNG" width="400">
 
 **The Generator Module**
+
 The generator module has four outputs (a, b, rst, clr) which link with the overall testbench and similarly two outputs (inc_exp, dec_exp) linking to the monitor module. It majorly consists of three tasks, the counter reset task which resets the counter after 25 ns, the initialize task which initiates the reset counter and initializes the (a, b, inc_exp, dec_exp) bits. Also, most importantly the counter task, which has all the FSM scenarios listed to achieve the sequences required for the counter to work. Overall, it is an abstract procedure generating test vectors and sequencing the clock as per requirement. Below are the screen shots of various tasks used in the generator module.
 
 <img src="UVM2.PNG" width="450">
@@ -72,9 +74,12 @@ The generator module has four outputs (a, b, rst, clr) which link with the overa
 **The Monitor Module**
 
 The Monitor module goes through all the activates of the counter, records it, compares and cross verifies its operation. It also displays error and success messages based on the code verification. Below is the code displaying the error & success scenarios. It takes 4 inputs from the generator module and a single input count from the FSM module.
+
 <img src="UVM4.PNG" width="500">
 
 **Details of scenario tested**
+
+
 The following scenarios were tested through the test bench
 i) Entry & Counter up scenario: The entry scenario follows the FSM sequence P<->Q<->S<->R<->En, upon this sequence detection the entry bit goes high and counter counts +4b’0001.
 ii) Exit & Counter down scenario: The exit scenario follows the FSM sequence P<->R<->S<->Q<->Ex, upon this sequence detection the exit bit goes high and the counter counts -4b’0001.
@@ -82,7 +87,8 @@ iii) Overflow condition 1: The counter has 4 bits, so it can count to 15(1111) a
 iv) Overflow condition 2: The counter cannot count down below 0000. Below 0000, the counter stays at 0000 regardless of the exit bit going high and displays an error.
 v) Wrong Sequence: The entry and exit bit goes high depending on a certain scenario as per the FSM states. Any wrong sequence leads to FSM state being held and not moving forward and displaying an error.
 
-** Documentation of bugs found**
+**Documentation of bugs found**
+
 The test bench has recorded the following bugs based on the tested scenarios
 a) Overflow condition (Intentional): - Any counter increment after count value 1111, the log of the counter shows ERROR. This is the overflow condition applied in the entry condition of counting. (i.e.) if (entry ==1) && (count <=15), then increment count otherwise count = 1111. 
 b) Wrong sequence (intentional): - A wrong sequence was entered to check the count value, with counter value remaining same though and an error message is to be displayed. Error successfully obtained in the log.
@@ -91,7 +97,9 @@ d) Log Values restart error(unintentional): - The log values tend to show error 
 e) Log Values inc_exp and dec_exp error (unintentional): - The log values show error when inc_exp or dec_exp bits are high but does not correspond 100% with the entry or exit signal. This is because inc_exp and dec_exp happen simultaneously only when last a = 0, b = 0 in the FSM sequence. 
 
 
-** Screen Captures - Timing Diagram & Log Files**
+**Screen Captures - Timing Diagram & Log Files**
+
+
 <img src="UVM5.PNG" width="600">
 <img src="UVM6.PNG" width="600">
 <img src="UVM7.PNG" width="600">
