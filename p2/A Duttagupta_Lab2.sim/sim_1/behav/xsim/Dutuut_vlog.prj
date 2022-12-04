@@ -1,0 +1,13 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../project_22.srcs/sources_1/new/Counter.sv" \
+"../../../../project_22.srcs/sources_1/new/FSM.sv" \
+"../../../../project_22.srcs/sources_1/new/generator.sv" \
+"../../../../project_22.srcs/sources_1/new/monitor.sv" \
+"../../../../project_22.srcs/sources_1/new/Dutuut.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
